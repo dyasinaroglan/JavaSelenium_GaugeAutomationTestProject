@@ -1,0 +1,17 @@
+# Çerezler kabul edilir
+* Elementine tıkla "CerezKabulEt"
+
+# Ana sayfa 'Giriş Yap' butonuna tıklanır
+* Elementine tıkla "AnaSayfaGirisYapButton"
+* "1" saniye bekle
+
+# <name> kullanıcı adı ve <password> şifresi ile login olunur
+* "EmailInput" li elementi bul temizle ve <name> değerini yaz
+* "PasswordInput" li elementi bul temizle ve <password> değerini yaz
+* Elementine tıkla "LoginGirisYapButton"
+* "2" saniye bekle
+
+# <E-posta adresiniz ve/veya şifreniz hatalı> uyarı mesajının görüntülendiği kontrol edilir
+* "UyariMesaji" elementi <E-posta adresiniz ve/veya şifreniz hatalı> değerini içeriyor mu kontrol et
+* "1" saniye bekle
+* "ErrorBox" elementinin disabled olduğunu kotrol et

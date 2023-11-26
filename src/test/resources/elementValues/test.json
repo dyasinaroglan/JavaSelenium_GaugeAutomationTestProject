@@ -1,0 +1,37 @@
+[
+  {
+    "key": "CerezKabulEt",
+    "value": "button[id='onetrust-accept-btn-handler']",
+    "type": "css"
+  },
+  {
+    "key" : "AnaSayfaGirisYapButton",
+    "value" : "div[class='link account-user']",
+    "type" : "css"
+  },
+  {
+    "key" : "EmailInput",
+    "value" : "#login-email",
+    "type" : "css"
+  },
+  {
+    "key" : "PasswordInput",
+    "value" : "login-password-input",
+    "type" : "id"
+  },
+  {
+    "key" : "LoginGirisYapButton",
+    "value" : "//button[@class='q-primary q-fluid q-button-medium q-button submit']",
+    "type" : "xpath"
+  },
+  {
+    "key" : "UyariMesaji",
+    "value" : "span[class='message']",
+    "type" : "css"
+  },
+  {
+    "key" : "ErrorBox",
+    "value" : "#error-box-wrapper",
+    "type" : "css"
+  }
+]
