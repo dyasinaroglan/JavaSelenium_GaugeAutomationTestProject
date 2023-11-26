@@ -33,5 +33,55 @@
     "key" : "ErrorBox",
     "value" : "#error-box-wrapper",
     "type" : "css"
+  },
+  {
+    "key" : "searchboxInput",
+    "value" : "div[class='N4M8bfaJ'] input[class='V8wbcUhU']",
+    "type" : "css"
+  },
+  {
+    "key" : "TümUrunlerRandom",
+    "value" : "div[class='image-overlay-body']",
+    "type" : "css"
+  },
+  {
+    "key" : "ProductPrice",
+    "value" : "div[class='product-price-container'] div div span[class='prc-dsc']",
+    "type" : "css"
+  },
+  {
+    "key" : "SepeteEklendiButton",
+    "value" : ".product-button-container button",
+    "type" : "css"
+  },
+  {
+    "key" : "SepetimButton",
+    "value" : "div[class='account-nav-item basket-preview'] a",
+    "type" : "css"
+  },
+  {
+    "key" : "SepettekiPrice",
+    "value" : "div[class='pb-basket-item-price']",
+    "type" : "css"
+  },
+  {
+    "key" : "AnladimButton",
+    "value" : "div[class='tooltip-content'] button",
+    "type" : "css"
+  },
+  {
+    "key" : "SepettekiTümUrünler",
+    "value" : "div[class='pb-basket-item-wrapper-v2']",
+    "type" : "css"
+  },
+  {
+    "key" : "SilButton",
+    "value" : "//div[@class='pb-basket-item-actions']/button",
+    "type" : "xpath"
+  },
+  {
+    "key" : "SepetBısUyariMesaji",
+    "value" : "//*[@id='pb-container']/div/div[1]/div[1]/span",
+    "type" : "xpath"
   }
 ]

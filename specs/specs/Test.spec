@@ -1,6 +1,25 @@
 Scenarios
 ==========
 
+Searchbox ürün arama, Sepete ürün ekleme-çıkarma, sepet kontrolü
+---------------------------------------------------------------
+* Çerezler kabul edilir
+* Searchbox input alanında "laptop" araması yapılır ve ENTER key yollanır
+* Arama sonucuna göre random bir ürün seçilir
+* Yeni sekme açılır ve açılan yeni sekmeye odaklama yapılır ve ürün fiyatı belleğe kaydedilir
+* Sepete Ekle butonuna tıklanır
+* Sepetim butonuna tıklanır
+* 'Anladım' butonuna tıklanır
+* Sepetteki fiyat ile belleğe kaydedilen fiyatın eşit olduğu kontrol edilir
+* Searchbox input alanında "laptop" araması yapılır ve ENTER key yollanır
+* Arama sonucuna göre random bir ürün seçilir
+* Sepete Ekle butonuna tıklanır
+* Sepetim butonuna tıklanır
+* Sepetteki ürün miktarının "2" olduğu kontrol edilir
+* Sepet boşaltılır
+* Sepetim butonuna tıklanır
+* Sepetin boş olduğu kontrol edilir
+
 Başarısız login, yanlış E-posta ile giriş yapma
 -------------------------
 * Çerezler kabul edilir

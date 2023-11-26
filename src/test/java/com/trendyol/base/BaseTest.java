@@ -59,7 +59,7 @@ public class BaseTest {
         prefs.put("profile.default_content_setting_values.notifications", 2);
         chromeOptions.setExperimentalOption("prefs", prefs);
         chromeOptions.addArguments("--ignore-certificate-errors");
-        chromeOptions.addArguments("--kiosk"); // tarayıcıyı tam ekran boyutunda başlatır
+        //chromeOptions.addArguments("--kiosk"); // tarayıcıyı tam ekran boyutunda başlatır
         chromeOptions.addArguments("--disable-notifications"); // web bildirimlerini devre dışı bırakır
         //chromeOptions.addArguments("--start-fullscreen");
         System.setProperty("webdriver.chrome.driver", "web_driver/chromedriver.exe"); //Selenium'un chrome tarayıcısını kontrol etmesi için, zorunlu

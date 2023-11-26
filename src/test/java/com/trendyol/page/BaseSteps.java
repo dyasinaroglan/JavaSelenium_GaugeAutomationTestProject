@@ -7,16 +7,27 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Random;
+import java.util.Set;
 
 import static io.restassured.RestAssured.given;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BaseSteps extends BaseTest {
+
+    List<String> tempDataList = new ArrayList<>();
+    List<Integer> tempDataListInt = new ArrayList<>();
+
+    String tempData;
 
     public static int DEFAULT_MAX_ITERATION_COUNT = 100;  // bir eylemin kaç kez tekrarlanacağını ifade eder
     public static int DEFAULT_MILLISECOND_WAIT_AMOUNT = 300; // her bir kontrol arasında bekleyeceğimiz süre
@@ -139,53 +150,82 @@ public class BaseSteps extends BaseTest {
         Assertions.assertEquals(actualText, expectedText, "Beklenen metni içermiyor " + key);
         logger.info(key + " elementi " + expectedText + " degerine eşittir.");
     }
-
-    @Step("Api'den film başlığını al <url>")
-    public void getTitleFromAPI(String url) {
-
-        Response response = given()
-                .when()
-                .get(url)
-                .then()
-                .statusCode(200)
-                .extract().response();
-        logger.info("Api response : " + response.asString());
-
-        String title = response.jsonPath().getString("Title");
-        logger.info("Api'den gelen başlık : " + title);
-
-        saveValue("Title", title);
-        logger.info("Api'den gelen başlık kaydedildi : " + title);
+    @Step("ENTER tuşuna bas")
+    public void pressEnter() {
+        action.sendKeys(Keys.ENTER).build().perform();
+    }
+    @Step("<key> menusünden random seçim yap")
+    public void clickOnRandomItemInList(String key) {
+        List<WebElement> elements = findElements(key);
+        Random random = new Random();
+        int index = random.nextInt(elements.size());
+        elements.get(index).click();
+        logger.info(key + " elementine random tiklandi " + elements.get(index).getText());
+    }
+    @Step("İkinci sekmeye geçilir")
+    public void switchToPage2() {
+        String parentWindow = driver.getWindowHandle();
+        Set<String> allWindows = driver.getWindowHandles();
+        for (String curWindow : allWindows) {
+            driver.switchTo().window(curWindow);
+        }
+        logger.info("Ikinci sekmeye gecildi");
     }
 
-    @Step("<key> Arama sonuçlarının titlekey başlığını içerdiğini doğrula")
-    public void verifySearchResultContainsTitle(String key) {
-        String expectedTitle = getValue("Title");
-        List<WebElement> searchResults = findElements(key);
+    @Step("<key> elementinin text değerinin boşluk sonrası/öncesi(varsa) atılır ve belleğe kaydedilir <count>")
+    public void dropDownRandomddSaveAfter(String key, int count) {
 
-        boolean isTitleFound = false;
-
-        for (WebElement result : searchResults) {
-            if (result.getText().toLowerCase().contains(expectedTitle.toLowerCase())) {
-                isTitleFound = true;
-                break;
-            }else {
-                logger.info("Arama sonuçları içerisinde '" + expectedTitle + "' başlığı bulunamadı.");
+        String element = findElement(key).getText();
+        logger.info(element);
+        if (element.contains(" ")) {
+            String[] parts = element.split(" ");
+            if(count >= 0 && count < parts.length){
+                element = parts[count].trim();
+                element = element.replaceAll("[.]", "");
             }
         }
-        Assertions.assertTrue(isTitleFound, "Arama sonuçları içerisinde '" + expectedTitle + "' başlığı bulunamadı.");
-    }
-    @Step("<key> li elementi bul temizle text değerini yaz(api)")
-    public void sendKeysWithTitle(String key) {
 
-        String titleValue = getValue("Title"); // "titleKey" ile alınan değeri yaz
-        WebElement element = findElement(key);
-        element.clear();
-        sendKeysTo(element,titleValue); // "titleKey" ile alınan değeri yaz
-        logger.info("Element bulundu ve yazıldı: Key : " + key + ", Title : " + titleValue);
+        tempData = element;
+        logger.info("Urunun fiyati: " + tempData);
+    }
+    @Step("<key> elementinin text içeriği belleğe kaydedilen text ile eşit olduğu kontrol edilir <count>")
+    public void priceAssertionsSplit(String key, int count) {
+        String expectedText = findElement(key).getText();
+        logger.info("Orijinal Metin: " + expectedText);
+
+        String[] parts = expectedText.split(" ");
+        // Eğer metin "24.000 TL 15.000 TL" formatında ise count 1 olmalı, değilse 0
+        count = (parts.length > 2) ? 1 : 0;
+
+        if (count < parts.length) {
+            expectedText = parts[count].trim();
+            logger.info("Seçilen Parça: " + expectedText);
+
+            // Noktaları ve TL metnini çıkar
+            expectedText = expectedText.replace(".", "").replace("TL", "").trim();
+            logger.info("Sayısal Değer: " + expectedText);
+        }
+
+        String errorMessage = String.format("Fiyatlar eşit değil. Beklenen: %s, Gerçek: %s", tempData, expectedText);
+        Assertions.assertTrue(Objects.equals(expectedText, tempData), errorMessage);
+        logger.info("Belleğe kaydedilen değer : " + tempData + " ile " + "ExpectedText değeri : " + expectedText + " eşittir");
+    }
+
+
+
+    @Step("<key> elementinin text değeri tempData'da saklanan değere eşittir")
+    public void checkElementValueEqualsTempData(String key) {
+        String element = findElement(key).getText();
+        Assertions.assertEquals(tempData, element, "Elementin text değeri '" + key + "' tempData'da saklanan değerle eşleşmiyor");
+        logger.info("Elementin değeri '" + key + "' tempData'da saklanan değerle eşleşir");
+    }
+    @Step({"<key> element size değeri <expectedCount> değerine eşit mi kontrol et"})
+    public void checkElementCountEquals(String key, int expectedCount) {
+        int actualCount = findElements(key).size();
+        assertEquals(expectedCount, actualCount, "Expected count does not match for " + key);
+        logger.info(key + " elementi sayısı " + expectedCount + " değerine eşittir.");
     }
 }
-
 
                                      /*
                                      @Step anatosyonu Gauge kütüphanesine ait bir anatosyondur. bunun ile testlerimizde sürekli olarak çağırabileceğimiz

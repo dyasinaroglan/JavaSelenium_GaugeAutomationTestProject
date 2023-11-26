@@ -15,3 +15,46 @@
 * "UyariMesaji" elementi <E-posta adresiniz ve/veya şifreniz hatalı> değerini içeriyor mu kontrol et
 * "1" saniye bekle
 * "ErrorBox" elementinin disabled olduğunu kotrol et
+
+# Searchbox input alanında <ürün> araması yapılır ve ENTER key yollanır
+* "searchboxInput" li elementi bul temizle ve <ürün> değerini yaz
+* "1" saniye bekle
+* ENTER tuşuna bas
+
+# Arama sonucuna göre random bir ürün seçilir
+* "2" saniye bekle
+* "TümUrunlerRandom" menusünden random seçim yap
+* "1" saniye bekle
+* İkinci sekmeye geçilir
+
+# Yeni sekme açılır ve açılan yeni sekmeye odaklama yapılır ve ürün fiyatı belleğe kaydedilir
+* İkinci sekmeye geçilir
+* "ProductPrice" elementinin text değerinin boşluk sonrası/öncesi(varsa) atılır ve belleğe kaydedilir "0"
+
+# Sepete Ekle butonuna tıklanır
+* Elementine tıkla "SepeteEklendiButton"
+* "1" saniye bekle
+
+# Sepetim butonuna tıklanır
+* Elementine tıkla "SepetimButton"
+* "1" saniye bekle
+
+# 'Anladım' butonuna tıklanır
+* Elementine tıkla "AnladimButton"
+
+# Sepetteki fiyat ile belleğe kaydedilen fiyatın eşit olduğu kontrol edilir
+* "1" saniye bekle
+* "SepettekiPrice" elementinin text içeriği belleğe kaydedilen text ile eşit olduğu kontrol edilir "1"
+
+# Sepetteki ürün miktarının <count> olduğu kontrol edilir
+* "SepettekiTümUrünler" element size değeri <count> değerine eşit mi kontrol et
+
+# Sepet boşaltılır
+* Elementine tıkla "SilButton"
+* "1" saniye bekle
+* Elementine tıkla "SilButton"
+* "1" saniye bekle
+
+# Sepetin boş olduğu kontrol edilir
+* "SepetBısUyariMesaji" elementi "Sepetinde ürün bulunmamaktadır." değerini içeriyor mu kontrol et
+
